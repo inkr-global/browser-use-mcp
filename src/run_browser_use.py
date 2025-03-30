@@ -1,6 +1,7 @@
 import asyncio
 import os
 import traceback
+from datetime import datetime
 from browser_use import Agent, Browser, BrowserConfig, BrowserContextConfig
 from langchain_google_genai import ChatGoogleGenerativeAI
 from mcp.server.fastmcp import Context
@@ -25,11 +26,15 @@ async def run_browser_use(task: str, context: Context):
 
     context.info("Preparing new context...")
 
+    log_folder_path_root = os.getenv("LOG_FOLDER_PATH", ".browser-use")
+    session_log_folder = datetime.now().strftime("%Y%m%d-%H%M%S")
+    log_folder_path = f"{log_folder_path_root}/{session_log_folder}"
+
     browser_context = await browser.new_context(
       config=BrowserContextConfig(
-        trace_path=".browser-use/trace",
-        save_recording_path=".browser-use/recordings",
-        save_downloads_path=".browser-use/downloads",
+        trace_path=f"{log_folder_path}/trace",
+        save_recording_path=f"{log_folder_path}/recordings",
+        save_downloads_path=f"{log_folder_path}/downloads",
       )
     )
 
@@ -39,8 +44,8 @@ async def run_browser_use(task: str, context: Context):
       browser=browser,
       browser_context=browser_context,
       use_vision=True,
-      save_conversation_path=".browser-use/conversations/conversation",
-      generate_gif=".browser-use/recording.gif"
+      save_conversation_path=f"{log_folder_path}/conversations/conversation",
+      generate_gif=f"{log_folder_path}/recording.gif",
     )
 
     try:
