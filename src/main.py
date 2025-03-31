@@ -7,7 +7,7 @@ app = FastMCP("Browser Use")
 
 @app.tool()
 async def run_browser_task(task: str, context: Context):
-  """Run a task in browser with Browser Use."""
+  """Automates a browser task using the browser-use library. Provide a natural language instruction for the task."""
 
   result = await run_browser_use(task, context)
   return result
