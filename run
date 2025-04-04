@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Environment Flags
+set -o errexit  # Exit when a command fails
+set -o pipefail # Catch mysqldump fails
+set -o nounset  # Exit when using undeclared variables
+
+FOLDER="$(readlink -f "${BASH_SOURCE[0]}" | xargs dirname)"
+
+cd "${FOLDER}" || exit 1
+
+if ! (command -v "uv" &>/dev/null); then
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+fi
+
+if [[ ! -d "./.venv" ]]; then
+  uv sync --no-progress
+fi
+
+uv run "./src/main.py"

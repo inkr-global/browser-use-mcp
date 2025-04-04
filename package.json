@@ -1,0 +1,11 @@
+{
+  "name": "@inkr/browser-use-mcp",
+  "version": "0.0.1",
+  "files": [
+    "./run"
+  ],
+  "bin": "./run",
+  "scripts": {
+    "start": "./run"
+  }
+}
