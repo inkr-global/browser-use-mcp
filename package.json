@@ -2,7 +2,11 @@
   "name": "@inkr/browser-use-mcp",
   "version": "0.0.1",
   "files": [
-    "./run"
+    "./src/",
+    "./.python-version",
+    "./pyproject.toml",
+    "./run",
+    "./uv.lock"
   ],
   "bin": "./run",
   "scripts": {
